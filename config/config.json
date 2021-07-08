@@ -1,0 +1,11 @@
+{
+	"verson": "v1",
+	"port": 3005,
+	"mongodb": {
+		"host": "localhost",
+		"port": 27017,
+		"username": "",
+		"password": "",
+		"dbname": "spinner"
+	}
+}

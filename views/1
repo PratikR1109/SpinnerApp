@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Champion - Rules</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- dropify -->
+<link rel="stylesheet" href="plugins/dropify/dropify.min.css">
+<!-- bootstrap-switch -->
+<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+<!-- selecr2 --->
+<link href="../assets/node_modules/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+<style>
+.myswitch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.myswitch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.myslider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.myslider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .myslider {
+  background-color: #2196F3;
+}
+
+input:focus + .myslider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .myslider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.myslider.myround {
+  border-radius: 34px;
+}
+
+.myslider.myround:before {
+  border-radius: 50%;
+}
+</style>
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Rules</h1>
+    </div>
+   
+    <div class="content" style="min-height: 0px !important;">
+      <div class="card">
+        <div class="card-body">
+            <label><b>Profile Verification ON-OFF</b></label>
+            <div class="checkbox">
+              <label class="myswitch">
+                    <input type="checkbox" id="checkboxVerification" name="Verification" <%if(config.cod){%> checked <%}else{%> <%}%>>
+                    <span class="myslider myround"></span>
+                  </label>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mostsell-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Top Seller Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderMarginbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th>Coin</th>
+                                                <th>WinRate</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="topUserList">
+                                            
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-default" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="popupTitle">Edit ReferAmount</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body card-body" id="catbody">
+            <form id="addReferAmount" method="post" >
+              <input type="hidden" name="id" value="0">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-label">Amount</label>
+                    <input class="form-control" id="amount" name="amount" value="<%if(total.referAmount){%><%=total.referAmount%><%}else{%><%}%>" placeholder="Enter Amount" type="text" required>
+                  </div>
+                  <label style="color: red; font-weight: 500;" id="messageerror"></label>
+                </div>
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+        <div class="row">
+        
+            <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+              <div class="card">
+                <div class="card-body box-rounded box-gradient"> <span class="info-box-icon bg-transparent"><i class="ti-money text-white"></i></span>
+                  <a href="javascript:;" onclick="openModel();">
+                    <div class="info-box-content">
+                        <h6 class="info-box-text text-white">ReferAmount</h6>
+                        <h1 class="text-white"><%=total.referAmount%></h1>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+             <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+              <div class="card">
+                <div class="card-body box-rounded box-gradient-4"> <span class="info-box-icon bg-transparent"><i class="ti-game text-white"></i></span>
+                  <a href="<%=BaseUrl%>/2pList/1">
+                    <div class="info-box-content">
+                      <h6 class="info-box-text text-white">2 Player EntryFee</h6>
+                      <h1 class="text-white"><%=total.p2%></h1>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+              <div class="card">
+                <div class="card-body box-rounded box-gradient-2"> <span class="info-box-icon bg-transparent"><i class="ti-game text-white"></i></span>
+                  <a href="<%=BaseUrl%>/4pList/1">
+                    <div class="info-box-content">
+                      <h6 class="info-box-text text-white">4 Player EntryFee</h6>
+                      <h1 class="text-white"><%=total.p4%></h1>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+              <div class="card">
+                <div class="card-body box-rounded box-gradient-3"> <span class="info-box-icon bg-transparent"><i class="ti-game text-white"></i></span>
+                  <a href="<%=BaseUrl%>/6pList/1">
+                    <div class="info-box-content">
+                      <h6 class="info-box-text text-white">6 Player EntryFee</h6>
+                      <h1 class="text-white"><%=total.p6%></h1>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+                <div class="card">
+                  <div class="card-body box-rounded box-gradient-3"> <span class="info-box-icon bg-transparent"><i class="ti-credit-card text-white"></i></span>
+                    <a href="<%=BaseUrl%>/withdrawAddAmountList/1">
+                      <div class="info-box-content">
+                        <h6 class="info-box-text text-white">Withdraw Amount</h6>
+                        <h1 class="text-white"><%=total.wL%></h1>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+             
+          </div>
+
+      <!-- <div class="row">
+        
+        <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+          <div class="card">
+            <div class="card-body box-rounded box-gradient"> <span class="info-box-icon bg-transparent"><i class="ti-money text-white"></i></span>
+              <a href="javascript:;" onclick="openModel();">
+              <div class="info-box-content">
+                <h6 class="info-box-text text-white" >ReferAmount</h6>
+                <h1 class="text-white"><%=total.referAmount%></h1>
+                </a>
+              </div>
+            </div>
+          </div>
+        
+         <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+          <div class="card">
+            <div class="card-body box-rounded box-gradient-4"> <span class="info-box-icon bg-transparent"><i class="ti-game text-white"></i></span>
+              <a href="<%=BaseUrl%>/2pList/1">
+              <div class="info-box-content">
+                <h6 class="info-box-text text-white">2 Player EntryFee</h6>
+                <h1 class="text-white"><%=total.p2%></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+          <div class="card">
+            <div class="card-body box-rounded box-gradient-2"> <span class="info-box-icon bg-transparent"><i class="ti-game text-white"></i></span>
+              <a href="<%=BaseUrl%>/4pList/1">
+                <div class="info-box-content">
+                  <h6 class="info-box-text text-white">4 Player EntryFee</h6>
+                  <h1 class="text-white"><%=total.p4%></h1>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+            <div class="card">
+              <div class="card-body box-rounded box-gradient-3"> <span class="info-box-icon bg-transparent"><i class="ti-game text-white"></i></span>
+                <a href="<%=BaseUrl%>/6pList/1">
+                  <div class="info-box-content">
+                    <h6 class="info-box-text text-white">6 Player EntryFee</h6>
+                    <h1 class="text-white"><%=total.p6%></h1>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+      </div> -->
+
+        
+
+      </div>
+
+     
+
+      <hr>
+
+    </div>
+    
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2020 Champion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+
+<!-- jQuery 3 --> 
+<script src="js/jquery.min.js"></script>  
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="plugins/jquery-sparklines/sparkline-int.js"></script> 
+<!-- DataTable --> 
+<script src="plugins/datatables/jquery.dataTables.min.js"></script> 
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
+
+<script src="<%=BaseUrl%>/plugins/table-expo/filesaver.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/xls.core.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/tableexport.js"></script>
+
+<script src="<%=BaseUrl%>/plugins/bootstrap-switch/highlight.js"></script> 
+<script src="<%=BaseUrl%>/plugins/bootstrap-switch/main.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+<script src="plugins/table-expo/filesaver.min.js"></script>
+<script src="plugins/table-expo/xls.core.min.js"></script>
+<script src="plugins/table-expo/tableexport.js"></script>
+<script>
+// $("table").tableExport({formats: ["xlsx","xls", "csv", "txt"],    });
+</script>
+
+<!-- dropify --> 
+<script src="plugins/dropify/dropify.min.js"></script> 
+<script>
+  $(document).ready(function(){
+  // Basic
+  $('.dropify').dropify();
+
+  // Translated
+   $('.dropify-fr').dropify({
+                    messages: {
+                        default: 'Glissez-déposez un fichier ici ou cliquez',
+                        replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                        remove:  'Supprimer',
+                        error:   'Désolé, le fichier trop volumineux'
+                    }
+                });
+
+                // Used events
+                var drEvent = $('#input-file-events').dropify();
+
+                drEvent.on('dropify.beforeClear', function(event, element){
+                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    alert('File deleted');
+                });
+
+                drEvent.on('dropify.errors', function(event, element){
+                    console.log('Has Errors');
+                });
+
+                var drDestroy = $('#input-file-to-destroy').dropify();
+                drDestroy = drDestroy.data('dropify')
+                $('#toggleDropify').on('click', function(e){
+                    e.preventDefault();
+                    if (drDestroy.isDropified()) {
+                        drDestroy.destroy();
+                    } else {
+                        drDestroy.init();
+                    }
+                })
+
+    });
+</script>
+
+<!-- bootstrap-switch --> 
+<!--
+<script src="plugins/bootstrap-switch/bootstrap-switch.js"></script> 
+<script src="plugins/bootstrap-switch/highlight.js"></script> 
+<script src="plugins/bootstrap-switch/main.js"></script>
+
+<script src="plugins/raphael/raphael-min.js"></script> 
+<script src="plugins/morris/morris.js"></script> --> 
+<!-- <script src="plugins/functions/dashboard1.js"></script>  -->
+<!-- select 2 --->
+<!-- <script src="plugins/select2/dist/js/select2.full.min.js"></script> -->
+
+<script>
+    function TopUser(){
+      console.log("click ");
+      $.ajax({
+        url: '<%=BaseUrl%>/getTopUser',
+        type: 'GET',
+        success: (response)=>{
+          console.log("resposne ::::::::::: ",response);
+          var tablebody = '';
+          var j = 1;
+          for(var i=0; i<response.data.length; i++){
+            console.log('name '+response.data[i].PlayerName)
+            
+                tablebody   +='<tr>'
+                            +'<td class="text-center ng-binding">'+j+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response.data[i].PlayerName+'</td> '
+                            // +'<td class="text-center ng-binding"><img src="'+response[i].catalogDetails[0].image+'" style="width: 50px;"/></td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response.data[i].Coin+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response.data[i].wRate+'%'+'</td> '
+                            // +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].description+'</td> '
+                            // +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].created_at+'</td> '
+                        +'</tr>';
+
+                j++;
+              
+            }
+          $('#topUserList').html(tablebody);
+          $('#mostsell-modal').modal('toggle');
+        },
+        error: (error)=>{
+          console.log("error ::::::: ", error);
+        }
+      })
+    }
+
+    function openModel(){
+    $('#popupTitle').html('Edit ReferAmount');
+    $('#modal-default').modal('show');
+  }
+
+  // function getReferAmount(url,id, image, name){
+  //   $('#popupTitle').html('Edit Category');
+  //   var form = '    <input type="hidden" name="categoriesId" value="'+id+'">'
+  //             +'    <div class="row">'
+  //             +'      <div class="col-md-12">'
+  //             +'        <div class="form-group">'
+  //             +'          <label class="control-label">Category Name *</label>'
+  //             +'          <input class="form-control" id="name" name="name" value="'+name+'" placeholder="Add Category" type="text" required>'
+  //             +'        </div>'
+  //             +'      </div>'
+  //             +'      <div class="col-md-12">'
+  //             +'        <button type="submit" class="btn btn-success">Submit</button>'
+  //             +'      </div>'
+  //             +'    </div>';
+
+  //   $('#addcatagory').html(form);         
+  //   $('#modal-default').modal('show');
+  // }
+
+    $('.close').on('click', function () {
+      // $('#addcatagory')[0].reset();
+      // $('#name').val('');
+  })
+
+    $('#addReferAmount').submit(function(e){
+    console.log("e ::::: ",e);
+    e.preventDefault();
+    var amount=$('#amount').val();
+    // console.log(amou)
+    // alert(amou);
+    // alert($('form').serialize())
+    var formData = new FormData(this);
+    // alert(amount);
+    console.log("formData  22 :::: ", formData);
+    $.ajax({
+      url: '<%=BaseUrl%>/addReferAmount',
+      type: 'post',
+      data: {amount : amount },
+      // enctype: 'multipart/form-data',
+      // cache:false,
+      // contentType: false,
+      // processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          console.log("error :::::::: ", data.msg);
+          $('#messageerror').html(data.msg);
+        }else{
+          location.reload();
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+
+
+    $("#checkboxVerification").change(function() {
+      var url = '<%=BaseUrl%>/verficationOnOFF/';
+      if(this.checked) {
+        url += '1';
+      }else{
+        url += '0';
+      }
+      $.ajax({
+            url: url,
+            type: 'GET',
+            success: (response)=>{
+              console.log(response);
+              var response = JSON.parse(response);
+              var msg = '';
+              if(response.status == 'active'){
+                msg = "Enabled! All COD Status Activate!";
+              }else{
+                msg = "Disabled! All COD Status InActivate!"
+              }
+              swal(msg, {
+                icon: "success",
+              });
+            },
+            error(err){
+              console.log("file deletion error: ",err);
+            }
+          })
+
+  });
+
+    // function getChart(){
+    //   var startdate = $('#earnstartdate').val();
+    //   var enddate = $('#earnenddate').val();
+    //   var data = {startdate: startdate, enddate: enddate};
+    //   console.log("data ::::::::: ", data);
+    //   $('#earning').empty();
+    //   $.ajax(
+    //       {
+    //       url: "<%BaseUrl%>/api/earning",
+    //       type: "POST",
+    //       data: data,
+    //       dataType: "json"                    
+    //   }).done(function(response) {
+    //     console.log("response :::::::: ", response);
+    //       var day_data = response;
+    //       Morris.Line({
+    //         element: 'earning',
+    //         data: day_data,
+    //         xkey: 'elapsed',
+    //         xLabelAngle: 40,
+    //         ykeys: ['Earning'],
+    //         labels: ['Earning'],
+    //         fillOpacity: 10,
+    //         pointStrokeColors: ['#00a65a'],
+    //         behaveLikeLine: true,
+    //         gridLineColor: '#e0e0e0',
+    //         lineWidth: 1,
+    //         hideHover: 'auto',
+    //         lineColors: ['#00a65a'],
+    //         parseTime: false,
+    //         resize: true
+    //       });
+
+          
+    //   })
+    // }
+    // function getPrepaidChart(){
+    //   var startdate = $('#prepaidstartdate').val();
+    //   var enddate = $('#prepaidenddate').val();
+    //   var data = {startdate: startdate, enddate: enddate};
+    //   console.log("data ::::::::: ", data);
+    //   $('#prepaidorders').empty();
+    //   $.ajax(
+    //       {
+    //       url: "<%BaseUrl%>/api/PrePaid",
+    //       type: "POST",
+    //       data: data,
+    //       dataType: "json"                    
+    //   }).done(function(response) {
+    //     console.log("PrePaid response :::::::: ", response);
+    //       var day_data = response;
+    //       Morris.Line({
+    //         element: 'prepaidorders',
+    //         data: day_data,
+    //         xkey: 'elapsed',
+    //         xLabelAngle: 40,
+    //         ykeys: ['Earning'],
+    //         labels: ['Earning'],
+    //         fillOpacity: 10,
+    //         pointStrokeColors: ['#00a65a'],
+    //         behaveLikeLine: true,
+    //         gridLineColor: '#e0e0e0',
+    //         lineWidth: 1,
+    //         hideHover: 'auto',
+    //         lineColors: ['#00a65a'],
+    //         parseTime: false,
+    //         resize: true
+    //       });
+
+          
+    //   })
+    // }
+    // $('.earnFilter').click(function(){
+    //   getChart();
+    // })
+    // $('.prepaidFilter').click(function(){
+    //   getPrepaidChart();
+    // })
+    // jQuery(document).ready(function() {
+    //     getChart();
+    //     getPrepaidChart();
+
+    //     // Switchery
+    //     var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+    //     $('.js-switch').each(function() {
+    //         new Switchery($(this)[0], $(this).data());
+    //     });
+    //     // For select 2
+    //     $(".select2").select2();
+    //     $('.selectpicker').selectpicker();
+    //     //Bootstrap-TouchSpin
+    //     $(".vertical-spin").TouchSpin({
+    //         verticalbuttons: true,
+    //         verticalupclass: 'ti-plus',
+    //         verticaldownclass: 'ti-minus'
+    //     });
+    //     var vspinTrue = $(".vertical-spin").TouchSpin({
+    //         verticalbuttons: true
+    //     });
+    //     if (vspinTrue) {
+    //         $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
+    //     }
+    //     $("input[name='tch1']").TouchSpin({
+    //         min: 0,
+    //         max: 100,
+    //         step: 0.1,
+    //         decimals: 2,
+    //         boostat: 5,
+    //         maxboostedstep: 10,
+    //         postfix: '%'
+    //     });
+    //     $("input[name='tch2']").TouchSpin({
+    //         min: -1000000000,
+    //         max: 1000000000,
+    //         stepinterval: 50,
+    //         maxboostedstep: 10000000,
+    //         prefix: '$'
+    //     });
+    //     $("input[name='tch3']").TouchSpin();
+    //     $("input[name='tch3_22']").TouchSpin({
+    //         initval: 40
+    //     });
+    //     $("input[name='tch5']").TouchSpin({
+    //         prefix: "pre",
+    //         postfix: "post"
+    //     });
+    //     // For multiselect
+    //     $('#pre-selected-options').multiSelect();
+    //     $('#optgroup').multiSelect({
+    //         selectableOptgroup: true
+    //     });
+    //     $('#public-methods').multiSelect();
+    //     $('#select-all').click(function() {
+    //         $('#public-methods').multiSelect('select_all');
+    //         return false;
+    //     });
+    //     $('#deselect-all').click(function() {
+    //         $('#public-methods').multiSelect('deselect_all');
+    //         return false;
+    //     });
+    //     $('#refresh').on('click', function() {
+    //         $('#public-methods').multiSelect('refresh');
+    //         return false;
+    //     });
+    //     $('#add-option').on('click', function() {
+    //         $('#public-methods').multiSelect('addOption', {
+    //             value: 42,
+    //             text: 'test 42',
+    //             index: 0
+    //         });
+    //         return false;
+    //     });
+    //     $(".ajax").select2({
+    //         ajax: {
+    //             url: "https://api.github.com/search/repositories",
+    //             dataType: 'json',
+    //             delay: 250,
+    //             data: function(params) {
+    //                 return {
+    //                     q: params.term, // search term
+    //                     page: params.page
+    //                 };
+    //             },
+    //             processResults: function(data, params) {
+    //                 // parse the results into the format expected by Select2
+    //                 // since we are using custom formatting functions we do not need to
+    //                 // alter the remote JSON data, except to indicate that infinite
+    //                 // scrolling can be used
+    //                 params.page = params.page || 1;
+    //                 return {
+    //                     results: data.items,
+    //                     pagination: {
+    //                         more: (params.page * 30) < data.total_count
+    //                     }
+    //                 };
+    //             },
+    //             cache: true
+    //         },
+    //         escapeMarkup: function(markup) {
+    //             return markup;
+    //         }, // let our custom formatter work
+    //         minimumInputLength: 1,
+    //         // templateResult: formatRepo, // omitted for brevity, see the source of this page
+    //         //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    //     });
+    // });
+</script>
+</body>
+</html>

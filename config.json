@@ -1,0 +1,11 @@
+{
+	"verson": "v1",
+	"port": "3030",
+	"mongodb": {
+		"host": "13.126.29.122",
+		"port": 53584,
+		"username": "myFirstHomeproduct",
+		"password": "@@myHome@@product@@",
+		"dbname": "homeproduct"
+	}
+}
